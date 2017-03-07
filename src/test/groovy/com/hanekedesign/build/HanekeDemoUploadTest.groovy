@@ -5,7 +5,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.Assert.*
 
-
 class HanekeDemoUploadTest {
 
     @Before
@@ -15,11 +14,6 @@ class HanekeDemoUploadTest {
 
     @Test
     public void testUpload(){
-        def project = MockProjects.CreateMockProject()
-
-        project.evaluate()
-
-
         DemoFtpUploader demoFtpUploader = new DemoFtpUploader(Sensitive.FTP_ADDRESS, Sensitive.FTP_USER, Sensitive.FTP_PASSWORD)
         demoFtpUploader.uploadFile("demo.hanekedesign.com/Android/Test/Test.apk", new File("test.apk"))
     }
@@ -37,5 +31,14 @@ class HanekeDemoUploadTest {
 
     }
 
+    @Test
+    public void testDebugUploadApk(){
+        def project = MockProjects.CreateMockProject()
+
+        project.evaluate()
+
+        project.tasks.hanekeFtpUploadDebug.transferApk()
+
+    }
 
 }

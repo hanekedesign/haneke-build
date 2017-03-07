@@ -1,6 +1,7 @@
 package com.hanekedesign.build
 
 import com.android.build.gradle.AppPlugin
+import com.android.build.VariantOutput
 import org.apache.commons.lang.StringUtils;
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -23,7 +24,7 @@ public class HanekeBuildPlugin implements Plugin<Project> {
         project.android.applicationVariants.all{ variant ->
 
 //            System.out.println('discovered variant: ' + variant.buildType.name)
-            
+
             // create name of tasks using product flavor and application variant
             def buildTypeName = variant.buildType.name.capitalize()
 
@@ -43,7 +44,8 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             ftpTask.description = 'Uploads the artifact to the Haneke Demo Server'
             ftpTask.group = HANEKE_BUILD
             ftpTask.versionName = project.android.defaultConfig.versionName
-            ftpTask.apkPath = variant.outputs.any { variantOutput -> variantOutput.outputFile }
+            ftpTask.apkPath = variant.outputs.find().outputFile
+
 
 
 

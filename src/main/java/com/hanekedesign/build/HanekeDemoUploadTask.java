@@ -22,7 +22,7 @@ public class HanekeDemoUploadTask extends AbstractTask {
         try {
             DemoFtpUploader uploader = new DemoFtpUploader(hanekeData.getFtpAddress(), hanekeData.getFtpUser(), hanekeData.getFtpPassword());
 
-            uploader.uploadFile(getApkPath(), new File(apkPath));
+            uploader.uploadFile(getApkPath()+"test.apk", new File(apkPath));
         } catch (IOException e) {
             e.printStackTrace();
         }
