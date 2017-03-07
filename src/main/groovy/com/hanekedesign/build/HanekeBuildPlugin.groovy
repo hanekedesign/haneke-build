@@ -11,17 +11,19 @@ public class HanekeBuildPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project project) {
+        def log = project.logger
 
         def hasAppPlugin = project.plugins.find { p -> p instanceof AppPlugin }
         if (!hasAppPlugin) {
             throw new IllegalStateException('The \'com.android.application\' plugin is required.')
         }
 
-        def extension = project.extensions.create('haneke-build', HanekeBuildPluginExtension)
-
+        def extension = project.extensions.create('haneke', HanekeBuildPluginExtension)
 
         project.android.applicationVariants.all{ variant ->
 
+//            System.out.println('discovered variant: ' + variant.buildType.name)
+            
             // create name of tasks using product flavor and application variant
             def buildTypeName = variant.buildType.name.capitalize()
 
@@ -32,18 +34,22 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             def productFlavorName = productFlavorNames.join('')
             def flavor = StringUtils.uncapitalize(productFlavorName)
 
-            def variationName = "${productFlavorName}${buildTypeName}"
+            def variationName = "${flavor}${buildTypeName}"
 
             def ftpTaskName = "hanekeFtpUpload${variationName}"
 
             def ftpTask = project.tasks.create(ftpTaskName, HanekeDemoUploadTask)
-            ftpTask.extension = extension
+            ftpTask.hanekeData = extension
             ftpTask.description = 'Uploads the artifact to the Haneke Demo Server'
             ftpTask.group = HANEKE_BUILD
+            ftpTask.versionName = project.android.defaultConfig.versionName
+            ftpTask.apkPath = variant.outputs.any { variantOutput -> variantOutput.outputFile }
+
+
 
             variant.outputs.each { output -> ftpTask.dependsOn output.assemble }
 
-
+//            System.out.println("added task: "+ftpTask.name)
         }
 
     }

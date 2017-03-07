@@ -6,9 +6,9 @@ import org.gradle.testfixtures.ProjectBuilder
 public class MockProjects {
 
     public static Project CreateMockProject() {
-        def project = ProjectBuilder.builder().build()
+        def project = ProjectBuilder.builder().withProjectDir(new File("src/test/fixtures/android_app")).build()
         project.apply plugin: 'com.android.application'
-        project.apply plugin: 'com.hanekedesign.build'
+        project.pluginManager.apply(HanekeBuildPlugin)
         project.android {
             compileSdkVersion 23
             buildToolsVersion '23.0.1'
@@ -25,6 +25,16 @@ public class MockProjects {
                     signingConfig signingConfigs.debug
                 }
             }
+        }
+
+        project.haneke{
+            def props = new Properties()
+            props.load(new FileInputStream("sensitive.properties"))
+            ftpPassword = props.ftpPassword
+            ftpUser = props.ftpUser
+            donedoneApiKey = props.donedoneApiKey
+            clientName = 'TestClient'
+            projectName = 'TestProject'
         }
 
         return project
