@@ -29,6 +29,9 @@ class HanekeDemoUploadTest {
         Assert.assertTrue(debugTask != null)
         Assert.assertTrue(releaseTask != null)
 
+        Assert.assertTrue(project.android.defaultConfig.versionCode == 5)
+        Assert.assertTrue(project.android.defaultConfig.versionName == '0.5')
+
     }
 
     @Test
@@ -37,8 +40,8 @@ class HanekeDemoUploadTest {
 
         project.evaluate()
 
-        project.tasks.hanekeFtpUploadDebug.transferApk()
-
+        def transferred = project.tasks.hanekeFtpUploadDebug.transferApk()
+        Assert.assertTrue(transferred)
     }
 
 }

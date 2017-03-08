@@ -14,8 +14,8 @@ public class MockProjects {
             buildToolsVersion '23.0.1'
 
             defaultConfig {
-                versionCode 1
-                versionName '1.0'
+                versionCode = project.haneke.versionCode
+                versionName = project.haneke.versionName
                 minSdkVersion 23
                 targetSdkVersion 23
             }
@@ -26,7 +26,6 @@ public class MockProjects {
                 }
             }
         }
-
         project.haneke{
             def props = new Properties()
             props.load(new FileInputStream("sensitive.properties"))

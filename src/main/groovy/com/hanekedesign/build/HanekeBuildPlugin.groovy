@@ -19,7 +19,10 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             throw new IllegalStateException('The \'com.android.application\' plugin is required.')
         }
 
-        def extension = project.extensions.create('haneke', HanekeBuildPluginExtension)
+        def extension = project.extensions.create('haneke', HanekeBuildPluginExtension)\
+
+        def incrementTask = project.tasks.create("hanekeIncrementBuild", IncrementBuildTask)
+
 
         project.android.applicationVariants.all{ variant ->
 
@@ -46,6 +49,7 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             ftpTask.versionName = project.android.defaultConfig.versionName
             ftpTask.apkPath = variant.outputs.find().outputFile
 
+            incrementTask.mustRunAfter ftpTask
 
 
 
