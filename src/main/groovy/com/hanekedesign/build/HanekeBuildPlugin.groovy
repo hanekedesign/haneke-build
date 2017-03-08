@@ -8,7 +8,7 @@ import org.gradle.api.Project
 
 public class HanekeBuildPlugin implements Plugin<Project> {
 
-    public static final String HANEKE_BUILD = 'Haneke Build'
+    public static final String HANEKE_BUILD = 'Haneke'
 
     @Override
     public void apply(Project project) {
@@ -19,7 +19,8 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             throw new IllegalStateException('The \'com.android.application\' plugin is required.')
         }
 
-        def extension = project.extensions.create('haneke', HanekeBuildPluginExtension)\
+        def extension = project.extensions.create('haneke', HanekeBuildPluginExtension)
+        extension.project = project
 
         def incrementTask = project.tasks.create("hanekeIncrementBuild", IncrementBuildTask)
 
@@ -50,8 +51,6 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             ftpTask.apkPath = variant.outputs.find().outputFile
 
             incrementTask.mustRunAfter ftpTask
-
-
 
             variant.outputs.each { output -> ftpTask.dependsOn output.assemble }
 

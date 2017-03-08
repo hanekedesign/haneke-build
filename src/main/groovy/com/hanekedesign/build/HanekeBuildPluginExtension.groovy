@@ -1,5 +1,7 @@
 package com.hanekedesign.build
 
+import org.gradle.api.Project
+
 
 class HanekeBuildPluginExtension {
 
@@ -16,19 +18,25 @@ class HanekeBuildPluginExtension {
     int versionCode
     String versionName
 
+    private Project project
+
+    public void setProject(Project project){
+        this.project = project;
+    }
+
     int getVersionCode(){
+
         def versionProps = new Properties()
         def versionFile = new File("${project.rootDir}/version.properties")
 
         if(versionFile.exists()) {
             versionProps.load(new FileInputStream(versionFile))
             if(versionProps.versionCode){
-                return versionProps.versionCode
+                return Integer.valueOf((String)versionProps.versionCode)
             }
         }
-        else{
-            return 1
-        }
+        return 1
+
     }
 
     String getVersionName(){
@@ -41,9 +49,9 @@ class HanekeBuildPluginExtension {
                 return versionProps.versionName
             }
         }
-        else{
-            return '0.0.1'
-        }
+
+        return '0.0.1'
+
     }
 
 }
