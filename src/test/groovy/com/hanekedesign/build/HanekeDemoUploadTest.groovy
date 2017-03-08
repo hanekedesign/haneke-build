@@ -40,17 +40,17 @@ class HanekeDemoUploadTest {
         def versionCode = project.haneke.versionCode
         def versionName = project.haneke.versionName
 
-//        System.out.println('Before task: code: '+versionCode+", name: "+versionName)
-
         def transferred = project.tasks.hanekeFtpUploadDebug.transferApk()
         Assert.assertTrue(transferred)
 
         project.tasks.hanekeIncrementBuild.incrementBuild()
 
-//        System.out.println('After task: code: ' + (int)project.haneke.versionCode+", name: "+project.haneke.versionName)
         Assert.assertTrue(project.haneke.versionCode == versionCode + 1)
         Assert.assertTrue(Integer.valueOf(project.haneke.versionName.split('\\.')[2]) == Integer.valueOf(versionName.split('\\.')[2]) + 1)
+    }
 
+    @Test
+    public void testDoneDoneApi(){
 
     }
 

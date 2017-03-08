@@ -29,10 +29,11 @@ public class MockProjects {
         project.haneke{
             def props = new Properties()
             props.load(new FileInputStream("sensitive.properties"))
-            ftpPassword = props.ftp_password
-            ftpUser = props.ftp_user
-            ftpAddress = props.ftp_address
+            ftpPassword = props.ftpPassword
+            ftpUser = props.ftpUser
+            ftpAddress = props.ftpAddress
             donedoneApiKey = props.donedoneApiKey
+            donedoneUsername = props.donedoneUsername
             clientName = 'TestClient'
             projectName = 'TestProject'
         }

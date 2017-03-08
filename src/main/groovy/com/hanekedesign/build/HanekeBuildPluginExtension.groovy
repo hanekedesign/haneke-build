@@ -14,6 +14,7 @@ class HanekeBuildPluginExtension {
 
     int donedoneProjectId
     String donedoneApiKey
+    String donedoneUsername
 
     int versionCode
     String versionName
