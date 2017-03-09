@@ -36,6 +36,7 @@ public class MockProjects {
             donedoneUsername = props.donedoneUsername
             clientName = 'TestClient'
             projectName = 'TestProject'
+            donedoneProjectId = 58504
         }
 
         return project

@@ -1,21 +1,19 @@
 package com.hanekedesign.build;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonWriter;
 import okhttp3.*;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 public class DoneDone {
 
     private OkHttpClient client;
-    private Gson gson;
 
     private int projectId;
     private String username;
@@ -27,12 +25,17 @@ public class DoneDone {
         this.projectId = projectId;
         this.username = username;
         this.apiKey = apiKey;
-        gson = new Gson();
-        client = new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)).build();
+
+        client = new OkHttpClient.Builder().addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String s) {
+                System.out.println(s);
+            }
+        }).setLevel(HttpLoggingInterceptor.Level.BODY)).build();
     }
 
-    public void PushNextRelease(String projectName, String versionName) throws IOException {
-        Call call = client.newCall(new Request.Builder().addHeader("Authentication",getAuthHeader()).url(BASE_URL + "projects/"+projectId+"/issues/all_active.json").build());
+    public boolean PushNextRelease(String projectName, String versionName) throws IOException {
+        Call call = client.newCall(new Request.Builder().addHeader("Authorization",getAuthHeader()).get().url(BASE_URL + "projects/"+projectId+"/issues/all_active.json").build());
         Response response = call.execute();
 
         List<Integer> retestBugs = new ArrayList<>();
@@ -51,27 +54,24 @@ public class DoneDone {
             }
         }
 
-         for(int i = 0; i < retestBugs.size(); i++){
-             call = client.newCall(new Request.Builder().addHeader("Authentication",getAuthHeader()).url(BASE_URL + "projects/"+projectId+"/issues/"+retestBugs.get(i)).build());
-         }
-
         JsonObject releaseBody = new JsonObject();
         releaseBody.addProperty("order_numbers", createIssueIdList(retestBugs));
         releaseBody.addProperty("title", projectName + " " + versionName);
         releaseBody.addProperty("description", "New release for "+projectName+", version "+versionName);
 
-
         call = client.newCall(new Request.Builder()
-                .addHeader("Authentication",getAuthHeader())
+                .addHeader("Authorization",getAuthHeader())
                 .url(BASE_URL + "projects/"+projectId+"/release_builds.json")
                 .post(RequestBody.create(MediaType.parse("application/json"),releaseBody.toString()))
                 .build());
 
         Response r = call.execute();
+        return r.isSuccessful();
+
     }
 
     private String getAuthHeader(){
-        return "";
+        return "Basic "+ Base64.getEncoder().encodeToString((username + ":" + apiKey).getBytes());
     }
 
     private String createIssueIdList(List<Integer> bugIds){

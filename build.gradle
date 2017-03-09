@@ -14,8 +14,8 @@ apply from: 'gradle-mvn-push.gradle'
 group = GROUP
 version = VERSION_NAME
 
-sourceCompatibility = JavaVersion.VERSION_1_6
-targetCompatibility = JavaVersion.VERSION_1_6
+//sourceCompatibility = JavaVersion.VERSION_1_6
+//targetCompatibility = JavaVersion.VERSION_1_6
 
 dependencies {
 
@@ -29,6 +29,7 @@ dependencies {
 
     compile 'commons-net:commons-net:3.6'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 }
 
 afterEvaluate { project ->

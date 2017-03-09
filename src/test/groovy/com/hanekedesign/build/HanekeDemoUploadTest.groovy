@@ -51,6 +51,13 @@ class HanekeDemoUploadTest {
 
     @Test
     public void testDoneDoneApi(){
+        def project = MockProjects.CreateMockProject()
+
+        project.evaluate()
+
+        boolean result = project.tasks.doneDoneReleaseTask.createNewRelease()
+
+        Assert.assertTrue(result)
 
     }
 

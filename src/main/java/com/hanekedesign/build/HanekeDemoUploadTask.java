@@ -1,15 +1,13 @@
 package com.hanekedesign.build;
 
 import org.gradle.api.DefaultTask;
-import org.gradle.api.Task;
-import org.gradle.api.internal.AbstractTask;
 import org.gradle.api.tasks.TaskAction;
 
 import java.io.File;
 import java.io.IOException;
 
 
-public class HanekeDemoUploadTask extends AbstractTask {
+public class HanekeDemoUploadTask extends DefaultTask {
 
     private static final String BASE = "demo.hanekedesign.com/Android/";
 

@@ -3,7 +3,7 @@ package com.hanekedesign.build
 import org.gradle.api.Project
 
 
-class HanekeBuildPluginExtension {
+public class HanekeBuildPluginExtension {
 
     String ftpAddress
     String ftpUser

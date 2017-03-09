@@ -1,7 +1,6 @@
 package com.hanekedesign.build
 
 import com.android.build.gradle.AppPlugin
-import com.android.build.VariantOutput
 import org.apache.commons.lang.StringUtils;
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -22,7 +21,10 @@ public class HanekeBuildPlugin implements Plugin<Project> {
         def extension = project.extensions.create('haneke', HanekeBuildPluginExtension)
         extension.project = project
 
-        def incrementTask = project.tasks.create("hanekeIncrementBuild", IncrementBuildTask)
+        def incrementTask = project.tasks.create('hanekeIncrementBuild', IncrementBuildTask)
+
+        def doneDoneTask = project.tasks.create('doneDoneReleaseTask', DoneDoneReleaseTask)
+        doneDoneTask.extension = extension
 
 
         project.android.applicationVariants.all{ variant ->
