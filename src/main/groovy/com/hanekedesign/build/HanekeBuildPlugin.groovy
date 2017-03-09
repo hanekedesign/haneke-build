@@ -22,9 +22,13 @@ public class HanekeBuildPlugin implements Plugin<Project> {
         extension.project = project
 
         def incrementTask = project.tasks.create('hanekeIncrementBuild', IncrementBuildTask)
+        incrementTask.group = HANEKE_BUILD
+        incrementTask.description = 'Increments the version code and name of the project (run automatically after a deploy)'
 
         def doneDoneTask = project.tasks.create('doneDoneReleaseTask', DoneDoneReleaseTask)
         doneDoneTask.extension = extension
+        doneDoneTask.group = HANEKE_BUILD
+        doneDoneTask.description = 'Creates a new release in done done with the current version name'
 
 
         project.android.applicationVariants.all{ variant ->

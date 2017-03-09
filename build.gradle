@@ -1,18 +1,21 @@
 buildscript {
     repositories {
+        jcenter()
         mavenCentral()
     }
 
     dependencies {
         classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.3'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
     }
 }
 
 apply plugin: 'groovy'
+apply plugin: 'com.github.johnrengelman.shadow'
 apply from: 'gradle-mvn-push.gradle'
 
-group = GROUP
-version = VERSION_NAME
+group = 'com.hanekedesign'
+version = '0.0.1'
 
 //sourceCompatibility = JavaVersion.VERSION_1_6
 //targetCompatibility = JavaVersion.VERSION_1_6
@@ -25,7 +28,7 @@ dependencies {
 
     compile gradleApi()
 
-    compile 'com.android.tools.build:gradle:1.5.0'
+    compile 'com.android.tools.build:gradle:2.3.0'
 
     compile 'commons-net:commons-net:3.6'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
