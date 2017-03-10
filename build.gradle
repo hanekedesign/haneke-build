@@ -35,6 +35,12 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 }
 
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 afterEvaluate { project ->
     uploadArchives {
         repositories {
