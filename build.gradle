@@ -11,7 +11,8 @@ buildscript {
 }
 
 apply plugin: 'groovy'
-apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+//apply plugin: 'com.github.johnrengelman.shadow'
 apply from: 'gradle-mvn-push.gradle'
 
 group = 'com.hanekedesign'
@@ -30,9 +31,12 @@ dependencies {
 
     compile 'com.android.tools.build:gradle:2.3.0'
 
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     compile 'commons-net:commons-net:3.6'
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+
+    testCompile 'junit:junit:4.12'
 }
 
 task fatJar(type: Jar) {

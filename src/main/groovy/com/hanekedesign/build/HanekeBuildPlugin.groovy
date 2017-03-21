@@ -1,7 +1,7 @@
 package com.hanekedesign.build
 
 import com.android.build.gradle.AppPlugin
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

@@ -10,14 +10,14 @@ public class MockProjects {
         project.apply plugin: 'com.android.application'
         project.pluginManager.apply(HanekeBuildPlugin)
         project.android {
-            compileSdkVersion 23
-            buildToolsVersion '23.0.1'
+            compileSdkVersion 25
+            buildToolsVersion '25.0.0'
 
             defaultConfig {
                 versionCode = project.haneke.versionCode
                 versionName = project.haneke.versionName
-                minSdkVersion 23
-                targetSdkVersion 23
+                minSdkVersion 25
+                targetSdkVersion 25
             }
 
             buildTypes {
