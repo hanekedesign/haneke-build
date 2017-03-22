@@ -12,7 +12,7 @@ buildscript {
 
 apply plugin: 'groovy'
 apply plugin: 'java'
-//apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'com.github.johnrengelman.shadow'
 apply from: 'gradle-mvn-push.gradle'
 
 group = 'com.hanekedesign'
@@ -39,11 +39,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-task fatJar(type: Jar) {
-    baseName = project.name + '-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
+//task fatJar(type: Jar) {
+//    baseName = project.name + '-all'
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    with jar
+//}
+
 
 afterEvaluate { project ->
     uploadArchives {
