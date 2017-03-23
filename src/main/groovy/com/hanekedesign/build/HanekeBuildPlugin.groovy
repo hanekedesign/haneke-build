@@ -57,7 +57,14 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             ftpTask.apkPath = variant.outputs.find().outputFile
 
             ftpTask.finalizedBy(incrementTask)
-//            incrementTask.mustRunAfter ftpTask
+
+            def qaBuildTask = project.tasks.create("createQaBuild${variationName}")
+            qaBuildTask.description = 'Creates a new QA build, which uploads the output apk to the demo ftp, creates a DoneDone release, and increments the build number'
+            qaBuildTask.group = HANEKE_BUILD
+            qaBuildTask.dependsOn ftpTask
+            qaBuildTask.dependsOn doneDoneTask
+            qaBuildTask.dependsOn incrementTask
+
 
             variant.outputs.each { output -> ftpTask.dependsOn output.assemble }
 

@@ -18,9 +18,6 @@ apply from: 'gradle-mvn-push.gradle'
 group = 'com.hanekedesign'
 version = '0.0.2'
 
-//sourceCompatibility = JavaVersion.VERSION_1_6
-//targetCompatibility = JavaVersion.VERSION_1_6
-
 dependencies {
 
     repositories {
@@ -38,12 +35,6 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 }
-
-//task fatJar(type: Jar) {
-//    baseName = project.name + '-all'
-//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-//    with jar
-//}
 
 
 afterEvaluate { project ->
