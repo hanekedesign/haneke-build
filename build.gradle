@@ -16,7 +16,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply from: 'gradle-mvn-push.gradle'
 
 group = 'com.hanekedesign'
-version = '0.0.1'
+version = '0.0.2'
 
 //sourceCompatibility = JavaVersion.VERSION_1_6
 //targetCompatibility = JavaVersion.VERSION_1_6

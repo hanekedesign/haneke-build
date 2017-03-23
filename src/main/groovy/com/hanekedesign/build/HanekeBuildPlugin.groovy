@@ -56,7 +56,8 @@ public class HanekeBuildPlugin implements Plugin<Project> {
             ftpTask.versionName = project.android.defaultConfig.versionName
             ftpTask.apkPath = variant.outputs.find().outputFile
 
-            incrementTask.mustRunAfter ftpTask
+            ftpTask.finalizedBy(incrementTask)
+//            incrementTask.mustRunAfter ftpTask
 
             variant.outputs.each { output -> ftpTask.dependsOn output.assemble }
 
