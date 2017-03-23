@@ -96,7 +96,7 @@ After a succesful sync of your project, your Gradle tab will have a new group ca
 
 - **doneDoneReleaseTask**:</br>
   creates a new Done Done Release if the `project.haneke{}` block has a `donedoneProjectId` defined
-- **HanekeFtpUploadDebug:**</br>
+- **hanekeFtpUploadDebug:**</br>
     assembles the current project and uploads a debug build to the demo server under:</br>
     `demo.hanekedesign.com/Android/clientName/projectName/(version)/apk_name.apk`
 - **hanekeIncrementBuild:**</br>
